@@ -20,7 +20,7 @@ public class FacultyDataModel {
         return listOfFaculty;
     }
 
-    public void setListOfClassrooms(ArrayList<Faculty> listOfFaculty) {
+    public void setListOfFaculty(ArrayList<Faculty> listOfFaculty) {
         this.listOfFaculty = listOfFaculty;
     }
 

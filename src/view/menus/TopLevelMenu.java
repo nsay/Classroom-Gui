@@ -4,6 +4,10 @@ import model.ClassroomDataModel;
 import model.FacultyDataModel;
 import model.OfferedCourseDataModel;
 import model.StudentDataModel;
+import utilities.ClassroomIO;
+import utilities.FacultyIO;
+import utilities.OfferedCourseIO;
+import utilities.StudentIO;
 import view.inputforms.InputClassroomForm;
 import view.inputforms.InputFacultyForm;
 import view.inputforms.InputOfferedCourseForm;
@@ -47,15 +51,23 @@ public class TopLevelMenu extends javax.swing.JFrame {
         classroommenu = new javax.swing.JMenu();
         classroomAddMenu = new javax.swing.JMenuItem();
         classroomListMenu = new javax.swing.JMenuItem();
+        classroomReadMenu = new javax.swing.JMenuItem();
+        classroomSaveMenu = new javax.swing.JMenuItem();
         classmenu = new javax.swing.JMenu();
         addClass = new javax.swing.JMenuItem();
         listClasses = new javax.swing.JMenuItem();
+        readClass = new javax.swing.JMenuItem();
+        saveClass = new javax.swing.JMenuItem();
         studentmenu = new javax.swing.JMenu();
         addStudentMenuItem = new javax.swing.JMenuItem();
         listStudentsMenuItem = new javax.swing.JMenuItem();
+        readStudentsMenuItem = new javax.swing.JMenuItem();
+        saveStudentsMenuItem = new javax.swing.JMenuItem();
         faculty = new javax.swing.JMenu();
         addfaculty = new javax.swing.JMenuItem();
         listfaculty = new javax.swing.JMenuItem();
+        readfaculty = new javax.swing.JMenuItem();
+        savefaculty = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,6 +101,22 @@ public class TopLevelMenu extends javax.swing.JFrame {
         });
         classroommenu.add(classroomListMenu);
 
+        classroomReadMenu.setText("Read Classrooms");
+        classroomReadMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classroomReadMenuActionPerformed(evt);
+            }
+        });
+        classroommenu.add(classroomReadMenu);
+
+        classroomSaveMenu.setText("Save Classrooms");
+        classroomSaveMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                classroomSaveMenuActionPerformed(evt);
+            }
+        });
+        classroommenu.add(classroomSaveMenu);
+
         jMenuBar1.add(classroommenu);
 
         classmenu.setText("Courses");
@@ -108,6 +136,22 @@ public class TopLevelMenu extends javax.swing.JFrame {
             }
         });
         classmenu.add(listClasses);
+
+        readClass.setText("Read Courses");
+        readClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readClassActionPerformed(evt);
+            }
+        });
+        classmenu.add(readClass);
+
+        saveClass.setText("Save Courses");
+        saveClass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveClassActionPerformed(evt);
+            }
+        });
+        classmenu.add(saveClass);
 
         jMenuBar1.add(classmenu);
 
@@ -129,6 +173,22 @@ public class TopLevelMenu extends javax.swing.JFrame {
         });
         studentmenu.add(listStudentsMenuItem);
 
+        readStudentsMenuItem.setText("Read Students");
+        readStudentsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readStudentsMenuItemActionPerformed(evt);
+            }
+        });
+        studentmenu.add(readStudentsMenuItem);
+
+        saveStudentsMenuItem.setText("Save Students");
+        saveStudentsMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveStudentsMenuItemActionPerformed(evt);
+            }
+        });
+        studentmenu.add(saveStudentsMenuItem);
+
         jMenuBar1.add(studentmenu);
 
         faculty.setText("Faculty");
@@ -148,6 +208,22 @@ public class TopLevelMenu extends javax.swing.JFrame {
             }
         });
         faculty.add(listfaculty);
+
+        readfaculty.setText("Read Faculty");
+        readfaculty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                readfacultyActionPerformed(evt);
+            }
+        });
+        faculty.add(readfaculty);
+
+        savefaculty.setText("Save Faculty");
+        savefaculty.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                savefacultyActionPerformed(evt);
+            }
+        });
+        faculty.add(savefaculty);
 
         jMenuBar1.add(faculty);
 
@@ -219,6 +295,38 @@ public class TopLevelMenu extends javax.swing.JFrame {
         liststudent.setVisible(true);
     }//GEN-LAST:event_listStudentsMenuItemActionPerformed
 
+    private void classroomReadMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classroomReadMenuActionPerformed
+        classroomdatamodel.setListOfClassrooms(ClassroomIO.readTextFile());
+    }//GEN-LAST:event_classroomReadMenuActionPerformed
+
+    private void readClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readClassActionPerformed
+        offeredcoursedatamodel.setListOfOfferedCourse(OfferedCourseIO.readTextFile());
+    }//GEN-LAST:event_readClassActionPerformed
+
+    private void readStudentsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readStudentsMenuItemActionPerformed
+        studentdatamodel.setListOfStudents(StudentIO.readTextFile());
+    }//GEN-LAST:event_readStudentsMenuItemActionPerformed
+
+    private void readfacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readfacultyActionPerformed
+        facultydatamodel.setListOfFaculty(FacultyIO.readTextFile());
+    }//GEN-LAST:event_readfacultyActionPerformed
+
+    private void classroomSaveMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_classroomSaveMenuActionPerformed
+        ClassroomIO.writeTextFile(classroomdatamodel);
+    }//GEN-LAST:event_classroomSaveMenuActionPerformed
+
+    private void saveClassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveClassActionPerformed
+        OfferedCourseIO.writeTextFile(offeredcoursedatamodel);
+    }//GEN-LAST:event_saveClassActionPerformed
+
+    private void saveStudentsMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveStudentsMenuItemActionPerformed
+        StudentIO.writeTextFile(studentdatamodel);
+    }//GEN-LAST:event_saveStudentsMenuItemActionPerformed
+
+    private void savefacultyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_savefacultyActionPerformed
+        FacultyIO.writeTextFile(facultydatamodel);
+    }//GEN-LAST:event_savefacultyActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem addClass;
     private javax.swing.JMenuItem addStudentMenuItem;
@@ -226,6 +334,8 @@ public class TopLevelMenu extends javax.swing.JFrame {
     private javax.swing.JMenu classmenu;
     private javax.swing.JMenuItem classroomAddMenu;
     private javax.swing.JMenuItem classroomListMenu;
+    private javax.swing.JMenuItem classroomReadMenu;
+    private javax.swing.JMenuItem classroomSaveMenu;
     private javax.swing.JMenu classroommenu;
     private javax.swing.JMenuItem exitMenuOption;
     private javax.swing.JMenu faculty;
@@ -234,6 +344,12 @@ public class TopLevelMenu extends javax.swing.JFrame {
     private javax.swing.JMenuItem listClasses;
     private javax.swing.JMenuItem listStudentsMenuItem;
     private javax.swing.JMenuItem listfaculty;
+    private javax.swing.JMenuItem readClass;
+    private javax.swing.JMenuItem readStudentsMenuItem;
+    private javax.swing.JMenuItem readfaculty;
+    private javax.swing.JMenuItem saveClass;
+    private javax.swing.JMenuItem saveStudentsMenuItem;
+    private javax.swing.JMenuItem savefaculty;
     private javax.swing.JMenu studentmenu;
     // End of variables declaration//GEN-END:variables
 

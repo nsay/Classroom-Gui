@@ -1,6 +1,9 @@
 package view.inputforms;
+
 import baseclasses.Classroom;
 import baseclasses.Classroom.RoomType;
+import exceptionhandling.ErrorDialog;
+import exceptionhandling.NoDataException;
 import java.util.ArrayList;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
@@ -140,6 +143,18 @@ public class InputClassroomForm extends javax.swing.JFrame {
             // Retrieve the values from the form
             String room = this.roomNumberInputField.getText();            
            
+            // If no room number is input, throw an exception and display 
+            // the error dialog.  Don't allow the user to continue until the
+            // error if fixed.
+            try {
+                if (room.length() == 0) {
+                    throw new NoDataException("Missing room number");
+                }
+            } catch (NoDataException error) {
+                ErrorDialog errordialog = new ErrorDialog(error.getMessage());
+                errordialog.setVisible(true);
+            }
+            
             // The value must come from the drop down list of string values and converted to a RoomType and RoomType value
             // Step 1 - Retrieve the data model associated with the combo list box
             ComboBoxModel datamodel = this.typeOfRoomListField.getModel();

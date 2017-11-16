@@ -2,6 +2,8 @@ package view.inputforms;
 
 import baseclasses.Student;
 import baseclasses.StudentCourse;
+import exceptionhandling.ErrorDialog;
+import exceptionhandling.NoDataException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -149,22 +151,45 @@ public class InputStudentForm extends javax.swing.JFrame {
     private void saveButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveButtonActionPerformed
         // Create a new offered course object
         Student aStudent = new Student();
+        
+        //  Figure out which button was clicked
+        String buttonClicked = evt.getActionCommand();
+        
+        if (buttonClicked.equals("Save")) {
+            
+            // Retrieve the values from the input form
+            String name = this.nameField.getText();
+            String address = this.addressField.getText();
+            String ssn = this.ssnTextfield.getText();
+            String dob = this.dateOfBirthField.getText();
+            String dog = this.dateOfGraduationField.getText();
+            String gpa = this.gpaField.getText();
 
-        // Retrieve the values from the input form
-        String name = this.nameField.getText();
-        String address = this.addressField.getText();
-        String ssn = this.ssnTextfield.getText();
-        String dob = this.dateOfBirthField.getText();
-        String dog = this.dateOfGraduationField.getText();
-        String gpa = this.gpaField.getText();
-       // Set the values to report form
-        aStudent.setName(name);
-        aStudent.setAddress(address);
-        aStudent.setSocialSecurityNumber(ssn);
-        aStudent.setCurrentGPA(Float.parseFloat(gpa));
+            // Check for incorrect name and social security is input, throw an exception and display 
+            // the error dialog.  Don't allow the user to continue until the
+            // error if fixed.
+            try {
+                //Check for name
+                if (name.length() == 0) {
+                    throw new NoDataException("Missing student name!");
+                }
+                //Check if ssn is only 9 digits and numeric 
+                if (ssn.length() != 9 || !ssn.matches("[0-9]+")) {
+                    throw new NoDataException("Missing social security number!");
+                }
+            } catch (NoDataException error) {
+                ErrorDialog errordialog = new ErrorDialog(error.getMessage());
+                errordialog.setVisible(true);
+            }        
 
-        // Add to the list in the data model
-        this.listOfStudents.add(aStudent);
+           // Set the values to report form
+            aStudent.setName(name);
+            aStudent.setAddress(address);
+            aStudent.setSocialSecurityNumber(ssn);
+
+            // Add to the list in the data model
+            this.listOfStudents.add(aStudent);
+        }
     }//GEN-LAST:event_saveButtonActionPerformed
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
